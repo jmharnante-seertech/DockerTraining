@@ -2,16 +2,18 @@ version: "2"
 services:
   backend:
     image: mongo:latest
+    command: mongod --port 2345
     ports:
-      - "27017:27017"
+      - "2345:2345"
     networks:
-        - docker_cont_network
+      - docker_cont_network
   swagger:
     image: swaggerapi/swagger-ui
     ports:
       - "80:8080"
     environment:
       - API_URL=http://localhost:8082/swagger.json
+#      - API_URL=http://localhost:5000/swaggerjson
     networks:
       - docker_cont_network
   swagger-editor:
@@ -31,6 +33,8 @@ services:
         - backend
       networks:
         - docker_cont_network
+      environment:
+        - PYTHONUNBUFFERED=0
 networks:
   docker_cont_network:
     driver: bridge

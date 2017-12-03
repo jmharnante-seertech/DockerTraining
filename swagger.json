@@ -61,6 +61,92 @@
         }
       }
     },
+    "/update": {
+      "post": {
+        "tags": [
+          "blog post"
+        ],
+        "summary": "update a blog post",
+        "description": "",
+        "operationId": "updatePost",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id",
+            "description": "Id of the object to be updated in the blog",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "body",
+            "name": "title",
+            "description": "new title",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "body",
+            "name": "post",
+            "description": "new post content",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "[{'title':title,'post':post, _id:id}]"
+          }
+        }
+      }
+    },
+    "/delete": {
+      "post": {
+        "tags": [
+          "blog post"
+        ],
+        "summary": "delete a blog post",
+        "description": "",
+        "operationId": "deletePost",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id",
+            "description": "Id of the object to be deleted in the blog",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "[{ _id:id}]"
+          }
+        }
+      }
+    },
     "/posts": {
       "get": {
         "tags": [

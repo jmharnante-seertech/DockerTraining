@@ -6,7 +6,18 @@
 	{% block headCss %}
 		<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/base.css')}}" type="text/css">
 	{% endblock %}
+
 </head>
+	<script>
+		function clickUpdate(id){
+			var updateDiv = document.getElementById("update-" + id);
+		        updateDiv.style.display = 'block';
+
+		    var infoDiv = document.getElementById("info-" + id);
+		        infoDiv.style.display = 'none';
+		}		
+
+	</script>
 	<body class="body">
 		<h2>Welcome to your blog</h2>
 		<form class="form-border" action="/add_post" method="POST">
@@ -24,11 +35,30 @@
 
 		{% for post in posts %}
 			<div class="blog-border">
-				<div class="title">
-					<div> {{ post.title }} </div>
+				<div id="info-{{ post._id }}">
+					<div class="title">
+						<div> {{ post.title }}</div>
+					</div>
+					<div class="post">
+						<div> {{ post.post }} </div>
+					</div>
+					<button onclick="clickUpdate('{{ post._id }}')" >update</button>
 				</div>
-				<div class="post">
-					<div> {{ post.post }} </div>
+				<div id="update-{{ post._id }}" hidden>
+					<form action="/update_post" method="POST">
+						<input id="update-title" type="text" name="title" placeholder="Title" value="{{post.title}}"></input>
+							<br/>
+						<textarea id="update-post" name="post"> {{post.post}} </textarea>
+							<br/>
+						<input type=text hidden value={{post._id}} name="id"/>
+						<input type="submit" value="SAVE"></input>
+					</form>
+				</div>
+				<div>
+					<form action="/remove_post" method="POST">
+						<input type=text hidden value={{post._id}} name="id"/>
+						<input type="submit" value="DELETE"></input>
+					</form>
 				</div>
 		  	</div>
 		{% endfor %}
